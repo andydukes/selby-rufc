@@ -1,33 +1,33 @@
 # Project Status
 
 **Last Updated:** 2025-10-11
-**Current Phase:** Planning Complete - Ready for Initial Setup
+**Current Phase:** Phase 0 Complete - Ready for Phase 1
 
 Living to-do list for the Selby Rugby App build. This document tracks progress through all development phases.
 
 ---
 
-## Phase 0: Project Setup & Infrastructure
+## Phase 0: Project Setup & Infrastructure ✅ COMPLETE
 
 ### Repository & Documentation
 - [x] Create PRD document
 - [x] Update CLAUDE.md with project context
 - [x] Set up GitHub repository
-- [ ] Commit initial documentation (PRD, CLAUDE.md, project-status.md)
-- [ ] Create README.md for public repository overview.
+- [x] Commit initial documentation (PRD, CLAUDE.md, project-status.md)
+- [x] Create README.md for public repository overview
 
 ### Development Environment
-- [ ] Initialize Next.js 14+ project with TypeScript
-- [ ] Configure App Router structure
-- [ ] Set up Tailwind CSS
-- [ ] Install and configure Shadcn UI
-- [ ] Install Lucide React icons
-- [ ] Install Sonner for toast notifications
-- [ ] Configure TypeScript strict mode
-- [ ] Set up ESLint and Prettier
+- [x] Initialize Next.js 14+ project with TypeScript
+- [x] Configure App Router structure
+- [x] Set up Tailwind CSS
+- [x] Install and configure Shadcn UI
+- [x] Install Lucide React icons
+- [x] Install Sonner for toast notifications
+- [x] Configure TypeScript strict mode
+- [x] Set up ESLint and Prettier
 
 ### Version Control & CI/CD
-- [ ] Set up .gitignore for Next.js/Node.js
+- [x] Set up .gitignore for Next.js/Node.js
 - [ ] Configure GitHub Actions for CI (lint, type-check, build)
 - [ ] Set up branch protection rules (optional)
 
@@ -36,21 +36,20 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 ## Phase 1: Core Frontend Structure
 
 ### Project Structure
-- [ ] Create folder structure:
+- [x] Create folder structure:
   - `/app` - Next.js App Router pages
   - `/components` - Reusable UI components
   - `/lib` - Utility functions and helpers
   - `/types` - TypeScript type definitions
   - `/public` - Static assets (images, icons)
-  - `/styles` - Global styles and Tailwind config
 
 ### Design System Implementation
-- [ ] Configure Tailwind with Selby RUFC color palette:
+- [x] Configure Tailwind with Selby RUFC color palette:
   - Primary Green: #1a5f3f
   - Accent Red/Burgundy: #9b2c2c
   - Gold/Yellow: #f4a613
   - Cream/Beige: #f5f1e8
-- [ ] Create base Shadcn UI theme configuration
+- [x] Create base Shadcn UI theme configuration
 - [ ] Build core UI components:
   - [ ] Header (logo, menu icon)
   - [ ] Bottom tab navigation (5 tabs)
