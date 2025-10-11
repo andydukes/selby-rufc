@@ -14,7 +14,7 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 - [x] Update CLAUDE.md with project context
 - [x] Set up GitHub repository
 - [ ] Commit initial documentation (PRD, CLAUDE.md, project-status.md)
-- [ ] Create README.md for public repository overview
+- [ ] Create README.md for public repository overview.
 
 ### Development Environment
 - [ ] Initialize Next.js 14+ project with TypeScript

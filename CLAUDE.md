@@ -89,7 +89,7 @@ This is the **Selby Rugby App** repository - a Progressive Web App (PWA) that re
 ## Git Workflow
 
 - Current branch: `main`
-- No main/master branch distinction currently configured
+- No main/master branch distinction currently configured.
 - Staged deletions (template files) ready for initial commit
 
 ## Architecture Principles
