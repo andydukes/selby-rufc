@@ -88,7 +88,7 @@ This is the **Selby Rugby App** repository - a Progressive Web App (PWA) that re
 
 ## Git Workflow
 
-- Current branch: `master`
+- Current branch: `main`
 - No main/master branch distinction currently configured
 - Staged deletions (template files) ready for initial commit
 
@@ -120,7 +120,7 @@ This is the **Selby Rugby App** repository - a Progressive Web App (PWA) that re
 
 ## Important Context
 
-- **All 22 Teams:** 4 men's, 1 ladies, 4 junior girls, 6 junior boys, 7 U12 teams
+- **5 Teams Phase 1:** 4 men's, 1 ladies
 - **QR Code Entry Point:** `https://app.selbyrugby.com` (domain TBD)
 - **Admin CMS:** `https://admin.selbyrugby.app` (domain TBD)
 - **Sponsor Types:** Club sponsors (carousel) and player sponsors (individual cards)
