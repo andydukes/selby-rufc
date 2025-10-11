@@ -1,31 +1,95 @@
+import { Header } from "@/components/header"
+import { BottomNav } from "@/components/bottom-nav"
+import { MatchHero } from "@/components/match-hero"
+import { SponsorCarousel } from "@/components/sponsor-carousel"
+import { SectionHeader } from "@/components/section-header"
+import { TeamSheet } from "@/components/team-sheet"
+import { ContentCard } from "@/components/content-card"
+import { ChevronRight } from "lucide-react"
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-gradient-to-b from-selby-green to-selby-green/80">
-      <div className="max-w-md w-full bg-selby-cream rounded-lg shadow-xl p-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-selby-green mb-4">
-            Selby Rugby App
-          </h1>
-          <p className="text-lg text-gray-700 mb-6">
-            Digital match day program for Selby RUFC
-          </p>
-          <div className="space-y-4">
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-              <h2 className="text-selby-red font-semibold mb-2">Status</h2>
-              <p className="text-gray-600">Phase 0: Initial Setup In Progress</p>
-            </div>
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-              <h2 className="text-selby-red font-semibold mb-2">Coming Soon</h2>
-              <ul className="text-left text-gray-600 space-y-1">
-                <li>• Team Sheets</li>
-                <li>• Player Profiles</li>
-                <li>• Sponsor Integration</li>
-                <li>• Match Day Updates</li>
-              </ul>
-            </div>
+    <>
+      <Header />
+
+      <main className="flex-1 bg-selby-green pb-20">
+        <div className="max-w-screen-md mx-auto px-4 py-4 space-y-4">
+
+          {/* Today's Match Hero */}
+          <MatchHero
+            opponent="Yorkshire Vikings"
+            kickOffTime="2:15pm"
+            groundInfo="Sandhill Lane"
+            weather="Sunny, 15°C"
+          />
+
+          {/* Sponsor Carousel */}
+          <SponsorCarousel />
+
+          {/* Team Sheets Section */}
+          <div className="rounded-lg overflow-hidden shadow-lg">
+            <SectionHeader title="TEAM SHEETS" />
+            <TeamSheet />
           </div>
+
+          {/* Live Match Centre Section */}
+          <div className="rounded-lg overflow-hidden shadow-lg">
+            <SectionHeader title="LIVE MATCH CENTRE" />
+            <ContentCard>
+              <div className="space-y-3">
+                <p className="font-semibold text-gray-900">Kick-off!</p>
+                <div className="flex items-center justify-between py-2">
+                  <p className="text-gray-700">
+                    Half-time: Selby 14 - 7 Yorkshire Vikings
+                  </p>
+                  <ChevronRight className="w-5 h-5 text-selby-gold" />
+                </div>
+              </div>
+            </ContentCard>
+          </div>
+
+          {/* Sponsors & Offers Section */}
+          <div className="rounded-lg overflow-hidden shadow-lg">
+            <SectionHeader title="SPONSORS & OFFERS" />
+            <ContentCard>
+              <div className="grid grid-cols-3 gap-4">
+                {["Lindum", "Norton", "Shops"].map((sponsor) => (
+                  <button
+                    key={sponsor}
+                    className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow flex items-center justify-center min-h-[80px]"
+                  >
+                    <span className="font-semibold text-gray-700 text-sm">
+                      {sponsor}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </ContentCard>
+          </div>
+
+          {/* Club & Community Section */}
+          <div className="rounded-lg overflow-hidden shadow-lg">
+            <SectionHeader title="CLUB & COMMUNITY" />
+            <ContentCard>
+              <div className="grid grid-cols-2 gap-3">
+                <button className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow text-left">
+                  <span className="font-semibold text-gray-700 text-sm">
+                    Chairman's Welcome
+                  </span>
+                </button>
+                <button className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow text-left">
+                  <span className="font-semibold text-gray-700 text-sm">
+                    Juniors Update
+                  </span>
+                </button>
+              </div>
+            </ContentCard>
+          </div>
+
         </div>
-      </div>
-    </main>
+      </main>
+
+      <BottomNav />
+    </>
   )
 }
