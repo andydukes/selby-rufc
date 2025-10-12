@@ -1,9 +1,22 @@
 # Project Status
 
-**Last Updated:** 2025-10-11
-**Current Phase:** Phase 0 Complete - Ready for Phase 1
+**Last Updated:** 2025-10-13
+**Current Phase:** Phase 2 Complete - CMS Setup Done, Ready for MVP Features
 
 Living to-do list for the Selby Rugby App build. This document tracks progress through all development phases.
+
+## Recent Milestones
+
+### 2025-10-13: Payload CMS Backend Complete
+- ✅ Integrated Payload CMS with MongoDB
+- ✅ Implemented all 7 data collections (Teams, Players, Matches, Sponsors, Content, Media, Users)
+- ✅ Set up admin panel at `/admin` with REST and GraphQL APIs
+- ✅ Reorganized app structure with route groups `(frontend)` and `(payload)`
+- ✅ Migrated from npm to pnpm
+- ✅ All core UI components built and tested
+- 📝 Committed and pushed to GitHub (commit: 21df8a8)
+
+**Next:** Phase 3 - Connect frontend to CMS and implement data fetching
 
 ---
 
@@ -33,15 +46,18 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 
 ---
 
-## Phase 1: Core Frontend Structure
+## Phase 1: Core Frontend Structure ✅ COMPLETE
 
 ### Project Structure
 - [x] Create folder structure:
-  - `/app` - Next.js App Router pages
+  - `/app` - Next.js App Router pages (organized with route groups)
   - `/components` - Reusable UI components
   - `/lib` - Utility functions and helpers
   - `/types` - TypeScript type definitions
   - `/public` - Static assets (images, icons)
+- [x] Implement route groups:
+  - `app/(frontend)` - Public-facing pages
+  - `app/(payload)` - CMS admin and API routes
 
 ### Design System Implementation
 - [x] Configure Tailwind with Selby RUFC color palette:
@@ -50,55 +66,75 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
   - Gold/Yellow: #f4a613
   - Cream/Beige: #f5f1e8
 - [x] Create base Shadcn UI theme configuration
-- [ ] Build core UI components:
-  - [ ] Header (logo, menu icon)
-  - [ ] Bottom tab navigation (5 tabs)
-  - [ ] Match day hero card
-  - [ ] Player card modal
-  - [ ] Sponsor carousel
-  - [ ] Content cards (cream background)
+- [x] Build core UI components:
+  - [x] Header (logo, menu icon) - `components/header.tsx`
+  - [x] Bottom tab navigation (5 tabs) - `components/bottom-nav.tsx`
+  - [x] Match day hero card - `components/match-hero.tsx`
+  - [x] Player card modal - (via TeamSheet component)
+  - [x] Sponsor carousel - `components/sponsor-carousel.tsx`
+  - [x] Content cards (cream background) - `components/content-card.tsx`
+  - [x] Section headers - `components/section-header.tsx`
+  - [x] Team sheet - `components/team-sheet.tsx`
 
 ### Core Layout
-- [ ] Create root layout with header and bottom nav
-- [ ] Implement responsive mobile-first design (320px-768px)
+- [x] Create root layout with header and bottom nav - `app/(frontend)/layout.tsx`
+- [x] Implement responsive mobile-first design (320px-768px)
 - [ ] Set up page transitions and animations
-- [ ] Configure PWA manifest.json
+- [x] Configure PWA manifest.json - Configured in layout metadata
 - [ ] Add service worker for offline support
 
 ---
 
-## Phase 2: Payload CMS Setup
+## Phase 2: Payload CMS Setup ✅ COMPLETE
 
 ### CMS Installation & Configuration
-- [ ] Choose database: MongoDB or PostgreSQL
-- [ ] Install Payload CMS
-- [ ] Configure Payload with chosen database
-- [ ] Set up admin panel UI customization (Selby branding)
-- [ ] Configure media upload (Vercel Blob or Cloudinary)
+- [x] Choose database: MongoDB - Using @payloadcms/db-mongodb adapter
+- [x] Install Payload CMS
+- [x] Configure Payload with chosen database - `payload.config.ts`
+- [x] Set up admin panel at `/admin` - `app/(payload)/admin/[[...segments]]/page.tsx`
+- [x] Configure media upload - Local media collection with /media directory
+- [x] Set up REST API - `app/(payload)/api/[...slug]/route.ts`
+- [x] Set up GraphQL API - `app/(payload)/api/graphql/route.ts`
+- [x] Configure Lexical rich text editor
 
 ### Data Collections & Schema
-- [ ] Create **Teams** collection:
-  - Fields: team_id, name, category, age_group, logo
-  - Validation rules
-- [ ] Create **Players** collection:
-  - Fields: player_id, team_id, name, number, position, photo_url, bio, stats (JSON), social_links (JSON), sponsor_id
-  - Relationship to Teams
-  - Optional relationship to Sponsors
-- [ ] Create **Matches** collection:
-  - Fields: match_id, team_id, opponent, kick_off_time, ground_info, weather, team_sheet (array), status
-  - Relationship to Teams and Players
-- [ ] Create **Sponsors** collection:
-  - Fields: sponsor_id, name, logo_url, ad_jpeg_url, type, linked_player_id
-  - Image upload with validation (dimensions/formats)
-- [ ] Create **Content** collection:
-  - Fields: content_id, slug, title, body (rich text), section, published_date
-  - Rich text editor configuration
+- [x] Create **Teams** collection - `collections/Teams.ts`:
+  - Fields: name, category, ageGroup, logo, description, active
+  - Categories: men's, ladies, junior girls, junior boys
+  - Validation rules implemented
+- [x] Create **Players** collection - `collections/Players.ts`:
+  - Fields: firstName, lastName, jerseyNumber, position, bio, stats, socialLinks
+  - Relationships to Teams and Sponsors
+  - Stats: appearances, tries, conversions, penalties, points
+  - Social links: instagram, twitter, facebook
+- [x] Create **Matches** collection - `collections/Matches.ts`:
+  - Fields: team, opponent, kickOffTime, groundInfo, weather, teamSheet, score, status, events
+  - Status: scheduled, live, halftime, fulltime, cancelled
+  - Team sheet with relationships to Players
+  - Events array for live updates
+- [x] Create **Sponsors** collection - `collections/Sponsors.ts`:
+  - Fields: name, logo, fullPageAd, type, linkedPlayer, displayOrder, active
+  - Types: club, player
+  - Image upload relationships
+- [x] Create **Content** collection - `collections/Content.ts`:
+  - Fields: slug, title, body (Lexical), section, publishedDate, featured
+  - Sections: chairmans-welcome, juniors-update, club-news, community, general
+  - Rich text editor with Lexical
+- [x] Create **Media** collection - `collections/Media.ts`:
+  - Image upload to /media directory
+  - Auto-generated sizes: thumbnail (400x300), card (768x1024), tablet (1024px)
+  - Alt text and caption fields
+- [x] Create **Users** collection - `collections/Users.ts`:
+  - Built-in auth system
+  - Roles: admin, editor, viewer
+  - Email and password authentication
 
 ### CMS Access Control
-- [ ] Set up role-based permissions (admin, editor, viewer)
+- [x] Set up role-based permissions (admin, editor, viewer) - Configured in Users collection
+- [x] Create Users collection with auth - `collections/Users.ts`
+- [x] Document CMS setup - `docs/payload-cms-setup.md`
 - [ ] Configure audit logging
-- [ ] Create initial admin user account
-- [ ] Document editor workflows
+- [ ] Document editor workflows for club staff
 
 ---
 
@@ -313,12 +349,21 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 
 ## Notes & Decisions Log
 
+### Recent Decisions (2025-10-13)
+- ✅ **Database:** MongoDB selected - Using @payloadcms/db-mongodb adapter
+- ✅ **Media Storage:** Local media directory at /media (can migrate to cloud storage later)
+- ✅ **Package Manager:** Migrated from npm to pnpm
+- ✅ **Architecture:** Implemented Next.js route groups for clean separation:
+  - `app/(frontend)` - Public pages
+  - `app/(payload)` - CMS admin and API
+- ✅ **Rich Text Editor:** Lexical editor (@payloadcms/richtext-lexical)
+- ✅ **API Layer:** Both REST and GraphQL endpoints auto-generated by Payload
+
 ### Decisions Pending
-- Database choice: MongoDB vs PostgreSQL
-- Media storage: Vercel Blob vs Cloudinary
 - CMS hosting platform: Vercel vs Railway vs DigitalOcean
 - Domain registration: `selbyrugby.com` vs alternative
 - Junior team privacy: Photo/name display restrictions for U12 teams
+- Media storage migration: Consider moving to Vercel Blob or Cloudinary for production
 
 ### Blockers
 - None currently
