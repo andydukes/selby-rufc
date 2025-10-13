@@ -2,6 +2,7 @@
 
 import { X } from "lucide-react"
 import { useEffect } from "react"
+import Image from "next/image"
 
 interface PlayerCardModalProps {
   isOpen: boolean
@@ -58,12 +59,14 @@ export function PlayerCardModal({
 
           {/* Player Photo */}
           <div className="flex flex-col items-center">
-            <div className="w-32 h-32 rounded-full bg-selby-green flex items-center justify-center mb-4 overflow-hidden">
+            <div className="w-32 h-32 rounded-full bg-selby-green flex items-center justify-center mb-4 overflow-hidden relative">
               {player.photoUrl ? (
-                <img
+                <Image
                   src={player.photoUrl}
                   alt={player.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="128px"
                 />
               ) : (
                 <span className="text-white text-4xl font-bold">

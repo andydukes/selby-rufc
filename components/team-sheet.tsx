@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import { PlayerCardModal } from "./player-card-modal"
+import type { Match, Player as PayloadPlayer, Media, Sponsor } from "@/payload-types"
+import { getMediaUrl } from "@/lib/payload"
 
 interface Player {
   id: string
@@ -13,51 +15,117 @@ interface Player {
 }
 
 interface TeamSheetProps {
-  players?: Player[]
+  match?: Match | null
 }
 
-export function TeamSheet({ players }: TeamSheetProps) {
+export function TeamSheet({ match }: TeamSheetProps) {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null)
 
-  // Mock players for demo
-  const mockPlayers: Player[] = players || [
-    { id: "1", name: "James Smith", number: 1, position: "Prop" },
-    { id: "2", name: "Tom Johnson", number: 2, position: "Hooker" },
-    { id: "3", name: "Mike Williams", number: 3, position: "Prop" },
-    { id: "4", name: "David Brown", number: 4, position: "Lock" },
-    { id: "5", name: "Chris Davis", number: 5, position: "Lock" },
-    { id: "6", name: "Rob Wilson", number: 6, position: "Flanker" },
-    { id: "7", name: "Paul Taylor", number: 7, position: "Flanker" },
-    { id: "8", name: "Mark Anderson", number: 8, position: "Number 8" },
-  ]
+  // Transform match team sheet data into player list
+  const players: Player[] = match?.teamSheet
+    ? match.teamSheet
+        .filter((entry) => entry.position === 'starting') // Only show starters on home page
+        .map((entry) => {
+          const player = entry.player as PayloadPlayer
+          const sponsor = player.sponsor as Sponsor | undefined
 
-  const forwards = mockPlayers.filter((p) => p.number <= 8)
+          return {
+            id: player.id,
+            name: player.name,
+            number: entry.jerseyNumber || player.number,
+            position: formatPosition(player.position),
+            photoUrl: player.photo && typeof player.photo !== 'string'
+              ? getMediaUrl(player.photo) || undefined
+              : undefined,
+            sponsorName: sponsor?.name,
+          }
+        })
+        .sort((a, b) => a.number - b.number) // Sort by jersey number
+    : []
+
+  const forwards = players.filter((p) => p.number <= 8)
+  const backs = players.filter((p) => p.number >= 9 && p.number <= 15)
+
+  // Helper to format position names
+  function formatPosition(position: string): string {
+    const positionMap: { [key: string]: string } = {
+      'loose-head-prop': 'Loose-head Prop',
+      'hooker': 'Hooker',
+      'tight-head-prop': 'Tight-head Prop',
+      'second-row': 'Second Row',
+      'blindside-flanker': 'Blindside Flanker',
+      'outside-flanker': 'Openside Flanker',
+      'number-8': 'Number 8',
+      'scrum-half': 'Scrum-half',
+      'fly-half': 'Fly-half',
+      'inside-centre': 'Inside Centre',
+      'outside-centre': 'Outside Centre',
+      'left-wing': 'Left Wing',
+      'right-wing': 'Right Wing',
+      'fullback': 'Fullback',
+    }
+    return positionMap[position] || position
+  }
+
+  // Show placeholder if no match data
+  if (!match || players.length === 0) {
+    return (
+      <div className="bg-selby-cream rounded-b-lg p-4">
+        <div className="text-gray-500 text-sm py-4 px-4 bg-white rounded-lg text-center">
+          <p>Team sheet will be available closer to kick-off</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>
       <div className="bg-selby-cream rounded-b-lg p-4">
         {/* Forwards Section */}
-        <h3 className="font-semibold text-gray-700 mb-3">Forwards</h3>
-        <div className="space-y-2">
-          {forwards.map((player) => (
-            <button
-              key={player.id}
-              onClick={() => setSelectedPlayer(player)}
-              className="w-full text-left py-3 px-4 bg-white rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-3 shadow-sm"
-            >
-              <span className="font-bold text-selby-green min-w-[2rem]">
-                {player.number}
-              </span>
-              <span className="text-gray-900">{player.name}</span>
-            </button>
-          ))}
-        </div>
+        {forwards.length > 0 && (
+          <>
+            <h3 className="font-semibold text-gray-700 mb-3">Forwards (1-8)</h3>
+            <div className="space-y-2">
+              {forwards.map((player) => (
+                <button
+                  key={player.id}
+                  onClick={() => setSelectedPlayer(player)}
+                  className="w-full text-left py-3 px-4 bg-white rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-3 shadow-sm"
+                >
+                  <span className="font-bold text-selby-green min-w-[2rem]">
+                    {player.number}
+                  </span>
+                  <span className="text-gray-900 font-medium">{player.name}</span>
+                  <span className="text-gray-500 text-sm ml-auto">{player.position}</span>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
 
         {/* Backs Section */}
-        <h3 className="font-semibold text-gray-700 mt-6 mb-3">Backs</h3>
-        <div className="text-gray-500 text-sm py-4 px-4 bg-white rounded-lg">
-          <p>Numbers 9-15 coming soon...</p>
-        </div>
+        <h3 className="font-semibold text-gray-700 mt-6 mb-3">Backs (9-15)</h3>
+        {backs.length > 0 ? (
+          <div className="space-y-2">
+            {backs.map((player) => (
+              <button
+                key={player.id}
+                onClick={() => setSelectedPlayer(player)}
+                className="w-full text-left py-3 px-4 bg-white rounded-lg hover:bg-gray-50 transition-colors flex items-center gap-3 shadow-sm"
+              >
+                <span className="font-bold text-selby-green min-w-[2rem]">
+                  {player.number}
+                </span>
+                <span className="text-gray-900 font-medium">{player.name}</span>
+                <span className="text-gray-500 text-sm ml-auto">{player.position}</span>
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="text-gray-500 text-sm py-4 px-4 bg-white rounded-lg">
+            <p>Backs lineup to be confirmed</p>
+          </div>
+        )}
       </div>
 
       {/* Player Modal */}

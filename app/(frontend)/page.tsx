@@ -6,8 +6,19 @@ import { SectionHeader } from "@/components/section-header"
 import { TeamSheet } from "@/components/team-sheet"
 import { ContentCard } from "@/components/content-card"
 import { ChevronRight } from "lucide-react"
+import { getTodaysMatch, getClubSponsors, formatKickOffTime } from "@/lib/payload"
+import type { Team } from "@/payload-types"
 
-export default function Home() {
+export default async function Home() {
+  // Fetch today's match and sponsors from CMS
+  const todaysMatch = await getTodaysMatch()
+  const sponsors = await getClubSponsors()
+
+  // Extract team name if team is populated
+  const homeTeamName = todaysMatch?.team && typeof todaysMatch.team !== 'string'
+    ? (todaysMatch.team as Team).name
+    : 'Selby RUFC'
+
   return (
     <>
       <Header />
@@ -16,20 +27,49 @@ export default function Home() {
         <div className="max-w-screen-md mx-auto px-4 py-4 space-y-4">
 
           {/* Today's Match Hero */}
-          <MatchHero
-            opponent="Yorkshire Vikings"
-            kickOffTime="2:15pm"
-            groundInfo="Sandhill Lane"
-            weather="Sunny, 15°C"
-          />
+          {todaysMatch ? (
+            <MatchHero
+              homeTeam={homeTeamName}
+              opponent={todaysMatch.opponent}
+              kickOffTime={formatKickOffTime(todaysMatch.kickOffTime)}
+              groundInfo={todaysMatch.groundInfo || 'Sandhill Lane'}
+              weather={todaysMatch.weather || 'TBC'}
+            />
+          ) : (
+            <MatchHero
+              homeTeam="Selby RUFC"
+              opponent="No match scheduled"
+              kickOffTime="TBC"
+              groundInfo="Sandhill Lane"
+              weather="Check back soon"
+            />
+          )}
 
           {/* Sponsor Carousel */}
-          <SponsorCarousel />
+          <SponsorCarousel sponsors={sponsors} />
+
+          {/* Quick Links Section */}
+          <div className="grid grid-cols-2 gap-3 mt-4">
+            <a
+              href="/team"
+              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all rounded-lg p-4 text-center"
+            >
+              <div className="text-white font-semibold">Team Sheets</div>
+              <div className="text-white/80 text-sm mt-1">View today&apos;s lineup</div>
+            </a>
+            <a
+              href="/club"
+              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all rounded-lg p-4 text-center"
+            >
+              <div className="text-white font-semibold">Club News</div>
+              <div className="text-white/80 text-sm mt-1">Latest updates</div>
+            </a>
+          </div>
 
           {/* Team Sheets Section */}
           <div className="rounded-lg overflow-hidden shadow-lg">
             <SectionHeader title="TEAM SHEETS" />
-            <TeamSheet />
+            <TeamSheet match={todaysMatch} />
           </div>
 
           {/* Live Match Centre Section */}
@@ -74,7 +114,7 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-3">
                 <button className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow text-left">
                   <span className="font-semibold text-gray-700 text-sm">
-                    Chairman's Welcome
+                    Chairman&apos;s Welcome
                   </span>
                 </button>
                 <button className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow text-left">

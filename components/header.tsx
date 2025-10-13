@@ -1,7 +1,6 @@
 "use client"
 
 import { Menu } from "lucide-react"
-import Image from "next/image"
 
 export function Header() {
   return (

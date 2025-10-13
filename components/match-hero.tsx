@@ -17,7 +17,7 @@ export function MatchHero({
 }: MatchHeroProps) {
   return (
     <div className="bg-selby-red text-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold text-center mb-2">TODAY'S MATCH</h2>
+      <h2 className="text-xl font-bold text-center mb-2">TODAY&apos;S MATCH</h2>
       <h3 className="text-2xl font-bold text-center mb-2">
         {homeTeam} vs {opponent}
       </h3>
