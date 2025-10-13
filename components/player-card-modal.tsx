@@ -59,8 +59,8 @@ export function PlayerCardModal({
       />
 
       {/* Modal */}
-      <div className="fixed inset-x-0 bottom-0 z-50 animate-slide-up">
-        <div className="bg-selby-cream rounded-t-3xl shadow-2xl max-w-screen-md mx-auto p-6">
+      <div className="fixed inset-x-0 bottom-0 z-50 animate-slide-up pb-20">
+        <div className="bg-selby-cream rounded-t-3xl shadow-2xl max-w-screen-md mx-auto p-6 max-h-[80vh] overflow-y-auto">
           {/* Close button */}
           <button
             onClick={onClose}

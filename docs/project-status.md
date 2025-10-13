@@ -1,11 +1,37 @@
 # Project Status
 
 **Last Updated:** 2025-10-13
-**Current Phase:** Phase 3 Home Page Complete - MVP Features In Progress
+**Current Phase:** Phase 3 MVP Features - 3 of 6 Pages Complete
 
 Living to-do list for the Selby Rugby App build. This document tracks progress through all development phases.
 
 ## Recent Milestones
+
+### 2025-10-13: Player Profile Page Complete ✅
+- ✅ Created dynamic route `/player/[id]` for individual player pages
+- ✅ Added `getPlayer()` utility function for fetching player data by ID
+- ✅ Built comprehensive profile UI with circular photo, name, position, number
+- ✅ Implemented season statistics display (appearances, tries, conversions, penalties, points)
+- ✅ Added social media links (Instagram, Twitter) with branded icons
+- ✅ Integrated sponsor section with logo, description, and CTAs
+- ✅ Fixed PlayerCardModal navigation to profile page
+- ✅ Fixed modal visibility issue - added bottom padding to prevent overlap with nav bar
+- ✅ Fixed Next.js 15 async params warning
+- ✅ Back navigation link to team sheet
+- 📝 Committed and pushed to GitHub (commit: 2fb427b)
+
+**Next:** Complete Sponsors & Offers, Club & Community, and Live Match Centre (placeholder) pages
+
+### 2025-10-13: Team Sheet Page Complete ✅
+- ✅ Created dedicated Team Sheet page at `/team`
+- ✅ Built TeamSheetFull component displaying complete roster
+- ✅ Organized players by position: Forwards (1-8), Backs (9-15), Substitutes (16-23)
+- ✅ Interactive player cards with modal popup
+- ✅ Match information header with opponent, kick-off time, venue
+- ✅ Real-time CMS data integration with proper caching
+- ✅ Sponsor badges for sponsored players
+- ✅ Mobile-first responsive design
+- 📝 Committed and pushed to GitHub (commit: 20e2042)
 
 ### 2025-10-13: Home Page with Real CMS Data Integration ✅
 - ✅ Created Payload API utilities (`lib/payload.ts`) for data fetching with caching
@@ -16,8 +42,6 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 - ✅ Improved accessibility with proper dialog titles and screen reader support
 - ✅ Added Dialog and VisuallyHidden UI components
 - 📝 Committed and pushed to GitHub (commit: d4fd456)
-
-**Next:** Complete remaining Phase 3 pages (Team Sheet, Player Profile, Sponsors, Club & Community)
 
 ### 2025-10-13: Payload CMS Backend Complete
 - ✅ Integrated Payload CMS with MongoDB
@@ -165,35 +189,40 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
   - [x] Player names, numbers, and positions
   - [x] Click to open player card modal
 
-### Team Sheet Page
-- [ ] Create team sheet layout
-  - [ ] Display 15 starters (1-15) organized by position
-  - [ ] Display 8 substitutes (16-23)
-  - [ ] Position group headers (Forwards, Backs)
-- [ ] Make player names tappable to open player card modal
-- [ ] Implement player card modal:
-  - [ ] Circular player photo
-  - [ ] Player name and number
-  - [ ] Sponsor logo (if applicable)
-  - [ ] "View Profile" button
-  - [ ] Smooth slide-up animation
+### Team Sheet Page ✅ COMPLETE
+- [x] Create team sheet layout
+  - [x] Display 15 starters (1-15) organized by position
+  - [x] Display 8 substitutes (16-23)
+  - [x] Position group headers (Forwards, Backs, Substitutes)
+- [x] Make player names tappable to open player card modal
+- [x] Implement player card modal:
+  - [x] Circular player photo
+  - [x] Player name and number
+  - [x] Sponsor logo (if applicable)
+  - [x] "View Profile" button
+  - [x] Smooth slide-up animation
+  - [x] Fixed modal visibility with bottom padding
+- [x] Match information header with opponent and kick-off time
 
-### Player Profile Page
-- [ ] Build full player profile view:
-  - [ ] Player photo (circular)
-  - [ ] Position and number
-  - [ ] Biography section
-  - [ ] Statistics display
-  - [ ] Social media links
-  - [ ] Sponsor logo and CTA (if applicable)
-- [ ] Responsive layout for mobile
-- [ ] Back navigation to team sheet
+### Player Profile Page ✅ COMPLETE
+- [x] Build full player profile view:
+  - [x] Player photo (circular)
+  - [x] Position and number
+  - [x] Biography section
+  - [x] Statistics display (appearances, tries, conversions, penalties, points)
+  - [x] Social media links (Instagram, Twitter)
+  - [x] Sponsor logo and CTA (if applicable)
+- [x] Responsive layout for mobile
+- [x] Back navigation to team sheet
+- [x] Dynamic routing `/player/[id]`
+- [x] Next.js 15 compatibility (async params)
 
 ### Sponsors & Offers Page
 - [ ] Create sponsor directory grid (3 per row mobile)
 - [ ] Fetch all club sponsors from CMS
 - [ ] Implement click to view full-page ad modal
 - [ ] Add sponsor type filtering (club vs player sponsors)
+- [ ] On Player popup on Team page, allow Sponsor button to popup advert  
 
 ### Club & Community Page
 - [ ] Build content sections:
@@ -218,10 +247,10 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 - [x] Create data fetching utilities in `lib/payload.ts`:
   - [x] `getTodaysMatch()` - Get today's match with 60s revalidation
   - [x] `getClubSponsors()` - Get all active club sponsors with 5min cache
+  - [x] `getPlayer(id)` - Get player profile by ID with 5min cache
   - [x] `getMediaUrl()` - Helper for media URL extraction
   - [x] `formatKickOffTime()` - Helper for time formatting
   - [ ] `/api/teams/[id]` - Get team details (pending)
-  - [ ] `/api/players/[id]` - Get player profile (pending)
   - [ ] `/api/content/[slug]` - Get content by slug (pending)
 - [x] Implement data fetching with caching strategy (Next.js 15 fetch cache)
 - [ ] Add loading states and skeletons
@@ -377,10 +406,15 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 - ✅ **API Layer:** Both REST and GraphQL endpoints auto-generated by Payload
 - ✅ **Data Fetching:** Using Next.js 15 native fetch with cache revalidation (no external libraries)
 - ✅ **Modal System:** Using Shadcn UI Dialog component with accessibility enhancements
+  - Custom PlayerCardModal with bottom padding (pb-20) to prevent overlap with bottom nav
+  - Router-based navigation to player profiles
 - ✅ **Caching Strategy:**
   - Match data: 60s revalidation for near-real-time updates
   - Sponsor data: 5min revalidation for better performance
+  - Player data: 5min revalidation for profile pages
 - ✅ **Image Optimization:** Next.js 15 Image component with remote patterns configured
+- ✅ **Player Profile:** Dynamic routing `/player/[id]` with async params (Next.js 15 compatibility)
+- ✅ **Navigation Flow:** Click player → Modal preview → View Profile button → Full profile page
 
 ### Decisions Pending
 - CMS hosting platform: Vercel vs Railway vs DigitalOcean

@@ -8,13 +8,14 @@ import type { Team, Sponsor, Media } from "@/payload-types"
 import { ArrowLeft, Instagram, Twitter } from "lucide-react"
 
 interface PlayerProfilePageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export default async function PlayerProfilePage({ params }: PlayerProfilePageProps) {
-  const player = await getPlayer(params.id)
+  const { id } = await params
+  const player = await getPlayer(id)
 
   if (!player) {
     notFound()
