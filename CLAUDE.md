@@ -31,12 +31,12 @@ This is the **Selby Rugby App** repository - a Progressive Web App (PWA) that re
 
 ### Backend/CMS
 - **CMS:** Payload CMS (self-hosted, non-technical editor interface)
-- **Database:** MongoDB or PostgreSQL (TBD)
+- **Database:** MongoDB
 - **Media Storage:** Vercel Blob or Cloudinary for sponsor images
 
 ### Hosting
-- **Frontend:** Vercel
-- **CMS/Backend:** Vercel, Railway, or DigitalOcean (TBD)
+- **Frontend:** Vercel or Self hosting
+- **CMS/Backend:** Vercel or Self Hosting
 
 ### Future (Phase 2)
 - **Authentication:** Better-Auth or Clerk
@@ -47,8 +47,11 @@ This is the **Selby Rugby App** repository - a Progressive Web App (PWA) that re
 - **Stage:** Planning/PRD Complete
 - Repository initialized from Specify template (original template files removed)
 - PRD document finalized at `/docs/selby-rugby-app-prd.md`
-- No code implementation yet - ready for initial setup
-- Staged deletions (template files) ready to be committed
+- Current Project Status at `/docs/project-status.md`
+
+## **Important** 
+
+When starting alway check the Project Status document for up to date status.
 
 ## Design System
 
@@ -80,10 +83,10 @@ This is the **Selby Rugby App** repository - a Progressive Web App (PWA) that re
 ## Development Workflow
 
 **To be established** - Once project structure is initialized, this section will include:
-- `npm run dev` - Start development server
-- `npm run build` - Production build
-- `npm run lint` - Code linting
-- `npm run type-check` - TypeScript validation
+- `pnpm run dev` - Start development server
+- `pnpm run build` - Production build
+- `pnpm run lint` - Code linting
+- `pnpm run type-check` - TypeScript validation
 - Payload CMS local development commands
 
 ## Git Workflow
@@ -109,14 +112,8 @@ This is the **Selby Rugby App** repository - a Progressive Web App (PWA) that re
 
 ## Next Steps (Initial Setup)
 
-1. Initialize Next.js 14+ project with TypeScript and App Router
-2. Set up Tailwind CSS and Shadcn UI
-3. Configure Payload CMS with chosen database
-4. Implement core data models (Teams, Players, Matches, Sponsors, Content)
-5. Build MVP features: Match day display, team sheets, player profiles
-6. Set up sponsor integration (carousel, full-page ads)
-7. Configure PWA capabilities
-8. Deploy frontend to Vercel and CMS to chosen platform
+- About to start tesk group 3 - see Project status `/docs/project-status.md`
+
 
 ## Important Context
 
