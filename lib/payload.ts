@@ -1,4 +1,4 @@
-import type { Match, Sponsor, Media } from '@/payload-types'
+import type { Match, Sponsor, Media, Player } from '@/payload-types'
 
 const PAYLOAD_API_URL = process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000'
 
@@ -59,6 +59,32 @@ export async function getClubSponsors(): Promise<Sponsor[]> {
   } catch (error) {
     console.error('Error fetching club sponsors:', error)
     return []
+  }
+}
+
+/**
+ * Fetches a single player by ID from Payload CMS
+ * Returns full player details with depth=2 to populate relationships
+ */
+export async function getPlayer(id: string): Promise<Player | null> {
+  try {
+    const response = await fetch(
+      `${PAYLOAD_API_URL}/api/players/${id}?depth=2`,
+      {
+        next: { revalidate: 300 }, // Revalidate every 5 minutes
+      }
+    )
+
+    if (!response.ok) {
+      console.error('Failed to fetch player:', response.statusText)
+      return null
+    }
+
+    const data = await response.json()
+    return data as Player
+  } catch (error) {
+    console.error('Error fetching player:', error)
+    return null
   }
 }
 

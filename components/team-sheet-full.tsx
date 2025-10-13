@@ -196,11 +196,6 @@ export function TeamSheetFull({ match }: TeamSheetFullProps) {
           isOpen={!!selectedPlayer}
           onClose={() => setSelectedPlayer(null)}
           player={selectedPlayer}
-          onViewProfile={() => {
-            // TODO: Navigate to player profile page when implemented
-            console.log('Navigate to player profile:', selectedPlayer.id)
-            setSelectedPlayer(null)
-          }}
         />
       )}
     </>

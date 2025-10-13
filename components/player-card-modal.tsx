@@ -2,12 +2,14 @@
 
 import { X } from "lucide-react"
 import { useEffect } from "react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 
 interface PlayerCardModalProps {
   isOpen: boolean
   onClose: () => void
   player: {
+    id: string
     name: string
     number: number
     position?: string
@@ -24,6 +26,8 @@ export function PlayerCardModal({
   player,
   onViewProfile,
 }: PlayerCardModalProps) {
+  const router = useRouter()
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden"
@@ -34,6 +38,15 @@ export function PlayerCardModal({
       document.body.style.overflow = "unset"
     }
   }, [isOpen])
+
+  const handleViewProfile = () => {
+    if (onViewProfile) {
+      onViewProfile()
+    } else {
+      router.push(`/player/${player.id}`)
+    }
+    onClose()
+  }
 
   if (!isOpen) return null
 
@@ -94,7 +107,7 @@ export function PlayerCardModal({
 
             {/* View Profile Button */}
             <button
-              onClick={onViewProfile || onClose}
+              onClick={handleViewProfile}
               className="bg-selby-gold text-selby-green font-bold py-3 px-12 rounded-lg hover:bg-selby-gold/90 transition-colors shadow-md w-full max-w-xs"
             >
               View Profile
