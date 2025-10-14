@@ -1,11 +1,27 @@
 # Project Status
 
 **Last Updated:** 2025-10-14
-**Current Phase:** Phase 3 MVP Features - 4 of 6 Pages Complete
+**Current Phase:** Phase 3 MVP Features - 5 of 6 Pages Complete
 
 Living to-do list for the Selby Rugby App build. This document tracks progress through all development phases.
 
 ## Recent Milestones
+
+### 2025-10-14: Club & Community Page Complete ✅
+- ✅ Created `getContentBySection()` utility function in lib/payload.ts
+- ✅ Integrated Lexical rich text rendering with `@payloadcms/richtext-lexical/react`
+- ✅ Built three content sections with CMS integration:
+  - Chairman's Welcome (section: chairmans-welcome)
+  - Juniors Update (section: juniors-update)
+  - Club News (section: club-news)
+- ✅ Implemented full rich text content display with Tailwind prose styling
+- ✅ Added metadata display (title, excerpt, author, published date)
+- ✅ Graceful empty state handling with friendly fallback messages
+- ✅ Maintained cream card styling with existing ContentCard components
+- ✅ 5-minute cache revalidation for optimal performance
+- ✅ Server-side rendering with Next.js 15 App Router
+
+**Next:** Complete Live Match Centre (placeholder) page to finish Phase 3 MVP
 
 ### 2025-10-14: Sponsors & Offers Page Complete ✅
 - ✅ Updated Sponsors collection with 'team' sponsor type and linkedTeam relationship
@@ -282,14 +298,17 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
   - [x] Sponsor data passed via player object
   - [x] Show "View Sponsor Offer" CTA if advertisement exists  
 
-### Club & Community Page
-- [ ] Build content sections:
-  - [ ] Chairman's Welcome
-  - [ ] Juniors Update
-  - [ ] General announcements
-- [ ] Fetch content from CMS
-- [ ] Render rich text content
-- [ ] Cream card styling
+### Club & Community Page ✅ COMPLETE
+- [x] Build content sections:
+  - [x] Chairman's Welcome
+  - [x] Juniors Update
+  - [x] Club News (general announcements)
+- [x] Fetch content from CMS
+- [x] Render rich text content with RichText component
+- [x] Cream card styling
+- [x] Server-side data fetching with 5-minute cache
+- [x] Display title, excerpt, author, published date metadata
+- [x] Empty state handling with fallback messages
 
 ### Live Match Centre Page (Placeholder)
 - [ ] Create placeholder UI for Phase 2 live scores
@@ -307,8 +326,10 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
   - [x] `getClubSponsors()` - Get all active club sponsors with 5min cache
   - [x] `getAllSponsors()` - Get all sponsors grouped by type (club/team/player) with 5min cache
   - [x] `getPlayer(id)` - Get player profile by ID with 5min cache
+  - [x] `getContentBySection(section)` - Get published content by section with 5min cache
   - [x] `getMediaUrl()` - Helper for media URL extraction
   - [x] `formatKickOffTime()` - Helper for time formatting
+  - [x] `formatMatchDate()` - Helper for date formatting
   - [ ] `/api/teams/[id]` - Get team details (pending)
   - [ ] `/api/content/[slug]` - Get content by slug (pending)
 - [x] Implement data fetching with caching strategy (Next.js 15 fetch cache)
@@ -457,6 +478,12 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 ### Recent Decisions
 
 **2025-10-14:**
+- ✅ **Lexical Rich Text Rendering:** Implemented `@payloadcms/richtext-lexical/react` RichText component for Club & Community page
+  - Server-side rendering with Next.js 15 App Router
+  - Tailwind prose styling for proper typography
+  - Content fetched by section (chairmans-welcome, juniors-update, club-news)
+  - 5-minute cache revalidation matching other CMS content
+- ✅ **Content Architecture:** Created `getContentBySection()` utility for section-based content fetching
 - ✅ **Sponsor Types:** Added three-tier sponsor hierarchy (Player/Team/Club)
 - ✅ **Sponsor Page Layout:** Implemented tiered card layout with visual hierarchy:
   - Club sponsors: 2 columns, largest cards (premium placement)

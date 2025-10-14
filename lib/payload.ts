@@ -164,3 +164,34 @@ export function formatMatchDate(kickOffTime: string): string {
     month: 'long',
   })
 }
+
+/**
+ * Fetches published content by section from Payload CMS
+ * Returns the most recent published content for the specified section
+ */
+export async function getContentBySection(section: string): Promise<import('@/payload-types').Content | null> {
+  try {
+    const response = await fetch(
+      `${PAYLOAD_API_URL}/api/content?where[section][equals]=${section}&where[status][equals]=published&sort=-publishedDate&limit=1&depth=2`,
+      {
+        next: { revalidate: 300 }, // Revalidate every 5 minutes
+      }
+    )
+
+    if (!response.ok) {
+      console.error(`Failed to fetch content for section "${section}":`, response.statusText)
+      return null
+    }
+
+    const data = await response.json()
+
+    if (data.docs && data.docs.length > 0) {
+      return data.docs[0] as import('@/payload-types').Content
+    }
+
+    return null
+  } catch (error) {
+    console.error(`Error fetching content for section "${section}":`, error)
+    return null
+  }
+}

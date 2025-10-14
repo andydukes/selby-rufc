@@ -1,0 +1,15 @@
+{
+  "servers": {
+    "shadcn": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"]
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "ctx7sk-2b4886a3-080c-47ae-9a48-c80eecb69f24"
+      }
+    }
+  } 
+}
