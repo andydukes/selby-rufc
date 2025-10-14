@@ -1,11 +1,45 @@
 # Project Status
 
 **Last Updated:** 2025-10-14
-**Current Phase:** Phase 3 MVP Features - 5 of 6 Pages Complete
+**Current Phase:** Phase 5 Complete - PWA Configuration ✅
 
 Living to-do list for the Selby Rugby App build. This document tracks progress through all development phases.
 
 ## Recent Milestones
+
+### 2025-10-14: Progressive Web App Configuration Complete ✅
+- ✅ Installed and configured @ducanh2912/next-pwa package
+- ✅ Enhanced manifest.json with complete PWA metadata:
+  - App icons in 8 sizes (72px-512px) plus maskable variants
+  - Theme colors, display mode (standalone), and orientation settings
+  - App shortcuts for quick access (Today's Match, Team Sheet)
+  - Screenshots metadata for potential app store listings
+- ✅ Configured service worker with comprehensive caching strategies:
+  - Cache-first: Static assets (images, fonts, CSS, JS) with expiration policies
+  - Network-first: API calls with 10s timeout and 5-minute cache fallback
+  - Stale-while-revalidate: Google Fonts and dynamic content
+- ✅ Created InstallPrompt component for "Add to Home Screen" functionality:
+  - Auto-triggers after 3 seconds for eligible devices
+  - Dismissible with 7-day cooldown period
+  - localStorage tracking for user preferences
+- ✅ Built offline fallback page at /offline with helpful instructions
+- ✅ Created automated icon generation script (`scripts/generate-icons.js`):
+  - Generates all required icon sizes from source SVG/PNG
+  - Applies Selby Rugby green background and proper padding
+  - Includes maskable icons with safe zone compliance
+- ✅ Created comprehensive documentation (`scripts/generate-pwa-icons.md`)
+- ✅ Generated placeholder SVG logo with Selby RUFC branding
+- ✅ Updated .gitignore to exclude generated service worker files
+- ✅ Added `pnpm generate:icons` script to package.json
+- ✅ Successfully built production bundle with PWA service worker
+
+**Technical Details:**
+- Service worker disabled in development mode for faster iteration
+- Production build generates `/public/sw.js` and Workbox configuration
+- All static assets precached for instant offline loading
+- Next.js 15 App Router fully compatible with PWA configuration
+
+**Next:** Complete Live Match Centre placeholder page to finish Phase 3 MVP
 
 ### 2025-10-14: Club & Community Page Complete ✅
 - ✅ Created `getContentBySection()` utility function in lib/payload.ts
@@ -345,19 +379,23 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 
 ---
 
-## Phase 5: PWA Configuration
+## Phase 5: PWA Configuration ✅ COMPLETE
 
 ### Progressive Web App Features
-- [ ] Configure manifest.json with app metadata:
-  - [ ] App name: "Selby Rugby App"
-  - [ ] Icons (multiple sizes)
-  - [ ] Theme colors (Selby green/red)
-  - [ ] Display mode: standalone
-- [ ] Set up service worker for offline caching
-- [ ] Implement cache-first strategy for static assets
-- [ ] Network-first strategy for match data
-- [ ] Add install prompt for "Add to Home Screen"
-- [ ] Test offline functionality
+- [x] Configure manifest.json with app metadata:
+  - [x] App name: "Selby Rugby App"
+  - [x] Icons (multiple sizes: 72-512px, maskable icons)
+  - [x] Theme colors (Selby green #1a5f3f)
+  - [x] Display mode: standalone
+  - [x] Shortcuts for quick access (Today's Match, Team Sheet)
+  - [x] Screenshots metadata for app stores
+- [x] Set up service worker for offline caching (@ducanh2912/next-pwa)
+- [x] Implement cache-first strategy for static assets (images, fonts, CSS, JS)
+- [x] Network-first strategy for API calls and dynamic data
+- [x] Add install prompt component for "Add to Home Screen"
+- [x] Create offline fallback page at /offline
+- [x] Generate all PWA icons with automated script
+- [x] Test build with PWA service worker generation
 
 ---
 

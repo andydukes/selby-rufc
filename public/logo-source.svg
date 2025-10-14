@@ -1,0 +1,24 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="#1a5f3f"/>
+
+  <!-- Gold circle -->
+  <circle cx="512" cy="512" r="380" fill="#f4a613" opacity="0.2"/>
+
+  <!-- Rugby ball outline -->
+  <ellipse cx="512" cy="512" rx="200" ry="280" fill="none" stroke="#f4a613" stroke-width="8"/>
+
+  <!-- Rugby ball laces -->
+  <line x1="512" y1="312" x2="512" y2="712" stroke="#f4a613" stroke-width="4"/>
+  <line x1="462" y1="412" x2="562" y2="412" stroke="#f4a613" stroke-width="4"/>
+  <line x1="462" y1="462" x2="562" y2="462" stroke="#f4a613" stroke-width="4"/>
+  <line x1="462" y1="512" x2="562" y2="512" stroke="#f4a613" stroke-width="4"/>
+  <line x1="462" y1="562" x2="562" y2="562" stroke="#f4a613" stroke-width="4"/>
+  <line x1="462" y1="612" x2="562" y2="612" stroke="#f4a613" stroke-width="4"/>
+
+  <!-- Text "SELBY" -->
+  <text x="512" y="220" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">SELBY</text>
+
+  <!-- Text "RUFC" -->
+  <text x="512" y="840" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">RUFC</text>
+</svg>
