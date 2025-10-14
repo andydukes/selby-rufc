@@ -1,11 +1,30 @@
 # Project Status
 
-**Last Updated:** 2025-10-13
-**Current Phase:** Phase 3 MVP Features - 3 of 6 Pages Complete
+**Last Updated:** 2025-10-14
+**Current Phase:** Phase 3 MVP Features - 4 of 6 Pages Complete
 
 Living to-do list for the Selby Rugby App build. This document tracks progress through all development phases.
 
 ## Recent Milestones
+
+### 2025-10-14: Sponsors & Offers Page Complete ✅
+- ✅ Updated Sponsors collection with 'team' sponsor type and linkedTeam relationship
+- ✅ Created tiered sponsor card component with three variants (club/team/player)
+- ✅ Implemented staggered cascade animations using Intersection Observer
+- ✅ Added interactive hover/tap effects (scale and shadow lift)
+- ✅ Built sponsors page with server-side data fetching (`getAllSponsors()` utility)
+- ✅ Created client-side SponsorsGrid component for interactivity
+- ✅ Implemented three-tier layout structure:
+  - Club Sponsors: 2 columns, largest cards (premium placement)
+  - Team Sponsors: 2 columns, medium cards (mid-tier)
+  - Player Sponsors: 3 columns, smallest cards (base tier)
+- ✅ Built reusable SponsorAdModal component for full-page advertisements
+- ✅ Updated PlayerCardModal with sponsor ad button functionality
+- ✅ Added "View Sponsor Offer" button in player modals when advertisement exists
+- ✅ Mobile-first responsive design with section headers
+- ✅ 5-minute cache revalidation for optimal performance
+
+**Next:** Complete Club & Community and Live Match Centre (placeholder) pages
 
 ### 2025-10-13: Player Profile Page Complete ✅
 - ✅ Created dynamic route `/player/[id]` for individual player pages
@@ -217,12 +236,51 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 - [x] Dynamic routing `/player/[id]`
 - [x] Next.js 15 compatibility (async params)
 
-### Sponsors & Offers Page
-- [ ] Create sponsor directory grid (3 per row mobile)
-- [ ] Fetch all club sponsors from CMS
-- [ ] Implement click to view full-page ad modal
-- [ ] Add sponsor type filtering (club vs player sponsors)
-- [ ] On Player popup on Team page, allow Sponsor button to popup advert  
+### Sponsors & Offers Page (Tiered Layout with Animation) ✅ COMPLETE
+- [x] Update Sponsors collection to include 'team' sponsor type
+  - [x] Add 'team' option to type field
+  - [x] Add linkedTeam relationship field
+- [x] Create sponsors page at `/sponsors`
+  - [x] Build page layout with mobile-first design
+  - [x] Add page header and description section
+- [x] Implement sponsor data fetching
+  - [x] Create `getAllSponsors()` utility in lib/payload.ts
+  - [x] Group sponsors by type (player/team/club)
+  - [x] Sort by displayOrder within each tier
+- [x] Build tiered sponsor card components
+  - [x] SponsorCard with variants for club/team/player sizes
+  - [x] Club: Largest size (premium placement)
+  - [x] Team: Medium size (mid-tier)
+  - [x] Player: Smaller size (base tier)
+  - [x] Each card shows: logo, name, description preview
+- [x] Implement tiered layout structure
+  - [x] "Club Sponsors" section header (burgundy accent)
+  - [x] Display club sponsors in 2 columns (largest cards)
+  - [x] "Team Sponsors" section header
+  - [x] Display team sponsors in 2 columns (medium cards)
+  - [x] "Player Sponsors" section header
+  - [x] Display player sponsors in 3 columns (smallest cards)
+- [x] Add staggered cascade animations
+  - [x] Implement fade + slide-up animation on scroll/load
+  - [x] Stagger delay between cards (50-100ms)
+  - [x] Use Intersection Observer for scroll-triggered animations
+- [x] Add interactive effects
+  - [x] Hover/tap: subtle scale (1.05) and shadow lift
+  - [x] Smooth transitions (300ms)
+  - [x] Active state feedback
+- [x] Implement full-page ad modal
+  - [x] Created reusable SponsorAdModal component
+  - [x] Uses Shadcn Dialog component
+  - [x] Click card opens sponsor advertisement
+  - [x] Close button and backdrop dismiss
+  - [x] Smooth fade-in transition
+- [ ] Add optional sponsor filtering (Phase 2 enhancement)
+  - [ ] Filter tabs: "All" | "Club" | "Team" | "Player"
+  - [ ] Animated transitions when filtering
+- [x] Update PlayerCardModal sponsor button
+  - [x] Click sponsor logo/button opens ad modal
+  - [x] Sponsor data passed via player object
+  - [x] Show "View Sponsor Offer" CTA if advertisement exists  
 
 ### Club & Community Page
 - [ ] Build content sections:
@@ -247,6 +305,7 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 - [x] Create data fetching utilities in `lib/payload.ts`:
   - [x] `getTodaysMatch()` - Get today's match with 60s revalidation
   - [x] `getClubSponsors()` - Get all active club sponsors with 5min cache
+  - [x] `getAllSponsors()` - Get all sponsors grouped by type (club/team/player) with 5min cache
   - [x] `getPlayer(id)` - Get player profile by ID with 5min cache
   - [x] `getMediaUrl()` - Helper for media URL extraction
   - [x] `formatKickOffTime()` - Helper for time formatting
@@ -395,7 +454,19 @@ Living to-do list for the Selby Rugby App build. This document tracks progress t
 
 ## Notes & Decisions Log
 
-### Recent Decisions (2025-10-13)
+### Recent Decisions
+
+**2025-10-14:**
+- ✅ **Sponsor Types:** Added three-tier sponsor hierarchy (Player/Team/Club)
+- ✅ **Sponsor Page Layout:** Implemented tiered card layout with visual hierarchy:
+  - Club sponsors: 2 columns, largest cards (premium placement)
+  - Team sponsors: 2 columns, medium cards
+  - Player sponsors: 3 columns, smallest cards
+- ✅ **Animations:** Staggered cascade animations using Intersection Observer with 50-100ms delays
+- ✅ **Component Architecture:** Single reusable `SponsorCard` component with variant prop instead of separate components
+- ✅ **Modal Reusability:** Created `SponsorAdModal` component for use across sponsors page and player modals
+
+**2025-10-13:**
 - ✅ **Database:** MongoDB selected - Using @payloadcms/db-mongodb adapter
 - ✅ **Media Storage:** Local media directory at /media (can migrate to cloud storage later)
 - ✅ **Package Manager:** Migrated from npm to pnpm

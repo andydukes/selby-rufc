@@ -63,6 +63,45 @@ export async function getClubSponsors(): Promise<Sponsor[]> {
 }
 
 /**
+ * Fetches all active sponsors from Payload CMS grouped by type
+ * Returns sponsors sorted by displayOrder within each type
+ */
+export async function getAllSponsors(): Promise<{
+  club: Sponsor[]
+  team: Sponsor[]
+  player: Sponsor[]
+}> {
+  try {
+    const response = await fetch(
+      `${PAYLOAD_API_URL}/api/sponsors?where[active][equals]=true&sort=displayOrder&depth=2`,
+      {
+        next: { revalidate: 300 }, // Revalidate every 5 minutes
+      }
+    )
+
+    if (!response.ok) {
+      console.error('Failed to fetch sponsors:', response.statusText)
+      return { club: [], team: [], player: [] }
+    }
+
+    const data = await response.json()
+    const sponsors = (data.docs || []) as Sponsor[]
+
+    // Group sponsors by type
+    const grouped = {
+      club: sponsors.filter((s) => s.type === 'club'),
+      team: sponsors.filter((s) => s.type === 'team'),
+      player: sponsors.filter((s) => s.type === 'player'),
+    }
+
+    return grouped
+  } catch (error) {
+    console.error('Error fetching all sponsors:', error)
+    return { club: [], team: [], player: [] }
+  }
+}
+
+/**
  * Fetches a single player by ID from Payload CMS
  * Returns full player details with depth=2 to populate relationships
  */

@@ -21,11 +21,12 @@ export const Sponsors: CollectionConfig = {
       type: 'select',
       required: true,
       options: [
-        { label: 'Club Sponsor', value: 'club' },
         { label: 'Player Sponsor', value: 'player' },
+        { label: 'Team Sponsor', value: 'team' },
+        { label: 'Club Sponsor', value: 'club' },
       ],
       admin: {
-        description: 'Club sponsors appear in carousel, player sponsors appear on individual player cards',
+        description: 'Player sponsors support individuals, Team sponsors support specific teams, Club sponsors support the whole club',
       },
     },
     {
@@ -65,6 +66,16 @@ export const Sponsors: CollectionConfig = {
       admin: {
         description: 'For player sponsors only - which player does this sponsor support?',
         condition: (data) => data.type === 'player',
+      },
+    },
+    {
+      name: 'linkedTeam',
+      type: 'relationship',
+      relationTo: 'teams',
+      label: 'Linked Team',
+      admin: {
+        description: 'For team sponsors only - which team does this sponsor support?',
+        condition: (data) => data.type === 'team',
       },
     },
     {

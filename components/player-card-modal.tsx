@@ -1,9 +1,11 @@
 "use client"
 
 import { X } from "lucide-react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
+import type { Sponsor } from "@/payload-types"
+import { SponsorAdModal } from "./sponsor-ad-modal"
 
 interface PlayerCardModalProps {
   isOpen: boolean
@@ -16,6 +18,7 @@ interface PlayerCardModalProps {
     photoUrl?: string
     sponsorName?: string
     sponsorLogoUrl?: string
+    sponsor?: Sponsor
   }
   onViewProfile?: () => void
 }
@@ -27,6 +30,7 @@ export function PlayerCardModal({
   onViewProfile,
 }: PlayerCardModalProps) {
   const router = useRouter()
+  const [showSponsorAd, setShowSponsorAd] = useState(false)
 
   useEffect(() => {
     if (isOpen) {
@@ -46,6 +50,10 @@ export function PlayerCardModal({
       router.push(`/player/${player.id}`)
     }
     onClose()
+  }
+
+  const handleViewSponsor = () => {
+    setShowSponsorAd(true)
   }
 
   if (!isOpen) return null
@@ -93,10 +101,33 @@ export function PlayerCardModal({
               {player.name}
             </h2>
 
-            {/* Sponsor Logo */}
-            {player.sponsorName && (
-              <div className="bg-selby-red text-white px-6 py-3 rounded-lg mb-4">
-                <p className="font-semibold">{player.sponsorName}</p>
+            {/* Sponsor Section */}
+            {(player.sponsorName || player.sponsor) && (
+              <div className="mb-4 w-full max-w-xs">
+                <div className="bg-white border-2 border-selby-burgundy rounded-lg p-4 text-center">
+                  {player.sponsorLogoUrl && (
+                    <div className="relative w-24 h-24 mx-auto mb-2">
+                      <Image
+                        src={player.sponsorLogoUrl}
+                        alt={player.sponsorName || 'Sponsor'}
+                        fill
+                        className="object-contain"
+                        sizes="96px"
+                      />
+                    </div>
+                  )}
+                  <p className="text-selby-burgundy font-semibold mb-2">
+                    Sponsored by {player.sponsorName}
+                  </p>
+                  {player.sponsor?.advertisement && (
+                    <button
+                      onClick={handleViewSponsor}
+                      className="text-sm text-selby-green bg-selby-gold px-4 py-2 rounded-lg hover:bg-yellow-500 transition-colors font-medium"
+                    >
+                      View Sponsor Offer
+                    </button>
+                  )}
+                </div>
               </div>
             )}
 
@@ -115,6 +146,15 @@ export function PlayerCardModal({
           </div>
         </div>
       </div>
+
+      {/* Sponsor Ad Modal */}
+      {player.sponsor && (
+        <SponsorAdModal
+          sponsor={player.sponsor}
+          open={showSponsorAd}
+          onOpenChange={setShowSponsorAd}
+        />
+      )}
     </>
   )
 }
