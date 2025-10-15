@@ -37,7 +37,7 @@ yarn-error.log*
 next-env.d.ts
 
 # payload
-/media
+#/media
 payload-types.ts
 
 /scratch-pad
